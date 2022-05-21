@@ -25,4 +25,10 @@ app.use("/uploads", express.static("uploads"));
 app.use(cors());
 app.use("/api/v1/", router);
 
+app.get("/", function (req, res) {
+  res.send({
+    message: "hello world",
+  });
+});
+
 server.listen(port, () => console.log(`Listening on port ${port}!`));
