@@ -4,11 +4,7 @@ exports.uploadFiles = (bookPdf, bookImg) => {
   // Destination & rename file
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      if (file.fieldname === bookPdf) {
-        cb(null, "uploads/pdf");
-      } else {
-        cb(null, "uploads/image");
-      }
+      cb(null, "uploads");
     },
     filename: function (req, file, cb) {
       cb(null, Date.now() + "-" + file.originalname.replace(/\s/g, ""));

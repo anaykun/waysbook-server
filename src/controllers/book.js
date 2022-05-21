@@ -108,6 +108,20 @@ exports.getBook = async (req, res) => {
 //POST Book
 exports.addBooks = async (req, res) => {
   try {
+    const result = await cloudinary.uploader.upload(req.file.bookImg[0].path, {
+      folder: "images",
+      use_filename: true,
+      unique_filename: false,
+    });
+    const resultPdf = await cloudinary.uploader.upload(
+      req.file.bookPdf[0].path,
+      {
+        folder: "pdf",
+        use_filename: true,
+        unique_filename: false,
+      }
+    );
+
     let data = {
       title: req.body.title,
       year: req.body.year,
@@ -116,8 +130,8 @@ exports.addBooks = async (req, res) => {
       ISBN: req.body.ISBN,
       price: req.body.price,
       desc: req.body.desc,
-      bookPdf: req.files.bookPdf[0].filename,
-      bookImg: req.files.bookImg[0].filename,
+      bookPdf: resultPdf.public_id,
+      bookImg: result.public_id,
     };
 
     let newBook = await book.create(data);
