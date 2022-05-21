@@ -108,13 +108,15 @@ exports.getBook = async (req, res) => {
 //POST Book
 exports.addBooks = async (req, res) => {
   try {
-    const result = await cloudinary.uploader.upload(req.file.bookImg[0].path, {
+    console.log("sssss", req.files);
+    const result = await cloudinary.uploader.upload(req.files.bookImg[0].path, {
       folder: "images",
       use_filename: true,
       unique_filename: false,
     });
+
     const resultPdf = await cloudinary.uploader.upload(
-      req.file.bookPdf[0].path,
+      req.files.bookPdf[0].path,
       {
         folder: "pdf",
         use_filename: true,
